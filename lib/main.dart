@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,7 @@ class _MyAppState extends State<MyApp> {
 
   void _answerQuestion() {
     setState(() {
-      if (_questionIndex < 1) {
+      if (_questionIndex < 2) {
         _questionIndex = _questionIndex + 1;
       }
     });
@@ -28,8 +29,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      "What's your favorite color?",
-      "What's your favorite animal",
+      {
+        'questionText': "What's your favorite color?",
+        'answers': ['White', 'Brown', 'Red', 'Yellow']
+      },
+      {
+        'questionText': "What's your favorite animal",
+        'answers': ['Cat', 'Dog', 'Rabbit', 'Lion']
+      },
+      {
+        'questionText': "What's your favorite instructor",
+        'answers': ['Sanni', 'Ayeni', 'Dele', 'Johnson']
+      }
     ];
 
     return MaterialApp(
@@ -40,20 +51,11 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(
-              questions[_questionIndex],
+              questions[_questionIndex]['questionText'],
             ),
-            ElevatedButton(
-              child: Text('Answer 1'),
-              onPressed: _answerQuestion,
-            ),
-            ElevatedButton(
-              child: Text('Answer 2'),
-              onPressed: _answerQuestion,
-            ),
-            ElevatedButton(
-              child: Text('Answer 3'),
-              onPressed: _answerQuestion,
-            ),
+            ...(questions[_questionIndex]['answers'] as List<String>).map((a) {
+              return Answer(a, _answerQuestion);
+            }).toList(),
           ],
         ),
       ),
