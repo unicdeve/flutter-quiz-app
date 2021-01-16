@@ -48,7 +48,11 @@ class _MyAppState extends State<MyApp> {
           title: Text('My second app'),
         ),
         body: _questionIndex < questions.length
-            ? Quiz(questions, _questionIndex, _answerQuestion)
+            ? Quiz(
+                questions: questions,
+                questionIndex: _questionIndex,
+                answerQuestion: _answerQuestion,
+              )
             : Result(),
       ),
     );
